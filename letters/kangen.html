@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aku juga kangen kamu 💌</title>
+<link rel="stylesheet" href="../style.css">
+<script src="../media-loader.js"></script>
+</head>
+<body class="letter-page">
+  <div class="letter-card">
+    <a class="back-link" href="../index.html">← kembali</a>
+
+    <div id="media"></div>
+
+    <h2 class="letter-title">Aku juga kangen banget sama kamu</h2>
+
+    <div class="letter-body">
+      <p>Jarak emang kadang nyebelin banget ya. Pengen banget bisa ketemu, jalan bareng, atau sekadar duduk diem-dieman aja udah cukup buat aku.</p>
+      <p>Tapi tenang aja, sejauh apapun jaraknya, perasaan aku ke kamu nggak berubah, malah makin nempel. LDR ini cuma jarak fisik doang, hati kita tetep deket kok.</p>
+      <p>Bentar lagi juga ketemu. Sabar ya sayang, aku di sini nungguin waktu itu dateng.</p>
+    </div>
+
+    <div class="letter-signoff">— i bet you think about me 💚</div>
+
+    <p class="gallery-intro">eh, coba liat ini dulu deh — beberapa momen kita berduaaa</p>
+
+    <div class="memory-gallery" id="memoryGallery"></div>
+  </div>
+
+<!-- Modal buat lihat foto kenangan lebih gede -->
+<div class="gallery-modal-overlay" id="galleryModal">
+  <div class="gallery-modal-content">
+    <button class="close-btn" id="galleryModalClose">✕</button>
+    <div id="galleryModalMedia"></div>
+    <p class="gallery-modal-caption" id="galleryModalCaption"></p>
+  </div>
+</div>
+
+<script>
+  loadMedia('media', '../videos/video-kangen.mp4', '../images/sticker-kangen.png', '🥹');
+
+  // --- Galeri kenangan berdua: 14 foto momen bareng ---
+  // Ganti "caption" di bawah biar sesuai cerita masing-masing foto ya
+  const MEMORY_ITEMS = [
+    { src: "../images/memory-1.jpeg", caption: "Ke pantai barengg" },
+    { src: "../images/memory-2.jpeg", caption: "Bagu banget" },
+    { src: "../images/memory-3.jpeg", caption: "Nonton series lagi yok" },
+    { src: "../images/memory-4.jpeg", caption: "Maen bareng lagi yokk" },
+    { src: "../images/memory-5.jpeg", caption: "Kamu cantik banget" },
+    { src: "../images/memory-6.jpeg", caption: "Jalan bareng lagi yokk" },
+    { src: "../images/memory-7.jpeg", caption: "muka kamu lucu banget di sini" },
+    { src: "../images/memory-8.jpeg", caption: "Ayok nongkrong lagii" },
+    { src: "../images/memory-9.jpeg", caption: "Kangen banget" },
+    { src: "../images/memory-10.jpeg", caption: "Kamu Imut banget sumpah disini ampe nangis dikit" },
+    { src: "../images/memory-11.jpeg", caption: "Banyakin fotbar lagiii" },
+    { src: "../images/memory-12.jpeg", caption: "Seneng banget disini" },
+    { src: "../images/memory-13.jpeg", caption: "Moment masih kaku buat foto bareng wkwkwk" },
+    { src: "../images/memory-14.jpeg", caption: "yang ini penutup, tapi bukan akhir tapi awal dari segalanya - aku sayang kamu" },
+  ];
+
+  function renderMemoryGallery(){
+    const wrap = document.getElementById("memoryGallery");
+    MEMORY_ITEMS.forEach((item, i) => {
+      const figure = document.createElement("figure");
+      figure.className = "memory-item";
+      figure.style.setProperty("--r", (Math.random() * 12 - 6).toFixed(1) + "deg");
+
+      const img = document.createElement("img");
+      img.src = item.src;
+      img.alt = item.caption;
+      img.onerror = () => { figure.style.display = "none"; };
+      figure.appendChild(img);
+
+      const caption = document.createElement("figcaption");
+      caption.textContent = item.caption;
+      figure.appendChild(caption);
+
+      figure.addEventListener("click", () => openMemoryModal(i));
+      wrap.appendChild(figure);
+    });
+  }
+
+  function openMemoryModal(index){
+    const item = MEMORY_ITEMS[index];
+    const mediaWrap = document.getElementById("galleryModalMedia");
+    mediaWrap.innerHTML = "";
+
+    const img = document.createElement("img");
+    img.className = "gallery-modal-img";
+    img.alt = item.caption;
+    img.onerror = () => {
+      mediaWrap.innerHTML = "";
+      const msg = document.createElement("p");
+      msg.className = "gallery-modal-missing";
+      msg.textContent = "foto belum ditaruh di sini~";
+      mediaWrap.appendChild(msg);
+    };
+    img.src = item.src;
+    mediaWrap.appendChild(img);
+
+    document.getElementById("galleryModalCaption").textContent = item.caption;
+    document.getElementById("galleryModal").classList.add("show");
+  }
+
+  function closeGalleryModal(){
+    document.getElementById("galleryModal").classList.remove("show");
+  }
+
+  document.getElementById("galleryModalClose").addEventListener("click", closeGalleryModal);
+  document.getElementById("galleryModal").addEventListener("click", (e) => {
+    if (e.target.id === "galleryModal") closeGalleryModal();
+  });
+
+  renderMemoryGallery();
+</script>
+</body>
+</html>

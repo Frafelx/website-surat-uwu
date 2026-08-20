@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selamat ulang tahun, sayang 💚</title>
+<link rel="stylesheet" href="../style.css">
+<script src="../media-loader.js"></script>
+</head>
+<body class="letter-page">
+  <div class="letter-card ultah-card">
+    <a class="back-link" href="../index.html">← kembali</a>
+
+    <div id="content"></div>
+  </div>
+
+<script>
+  const UNLOCK_DATE = "2026-09-21T00:00:00";
+
+  // --- MODE TESTING ---
+  // Buka link surat ini dengan tambahan ?preview=1 di belakang URL,
+  // misalnya: ultah.html?preview=1
+  // supaya bisa lihat isi surat TANPA nunggu tanggal 21 Sept beneran.
+  // Kalau parameter ini nggak ada, sistem lock jalan normal seperti biasa.
+  const params = new URLSearchParams(window.location.search);
+  const isPreviewMode = params.get("preview") === "1";
+
+  function isUnlocked(){
+    if (isPreviewMode) return true;
+    return new Date() >= new Date(UNLOCK_DATE);
+  }
+
+  function renderLocked(){
+    document.getElementById("content").innerHTML = `
+      <div class="locked-view">
+        <div class="lock-icon">🔒</div>
+        <h2>Sabar dulu ya~</h2>
+        <p>Surat ini baru bisa dibuka tanggal 21 September 2026</p>
+        <div class="countdown" id="countdownBoxes"></div>
+      </div>
+    `;
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  }
+
+  function updateCountdown(){
+    const target = new Date(UNLOCK_DATE).getTime();
+    const now = new Date().getTime();
+    const diff = Math.max(0, target - now);
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    const box = document.getElementById("countdownBoxes");
+    if (!box) return;
+
+    box.innerHTML = `
+      <div class="box"><span class="num">${days}</span><span class="unit">HARI</span></div>
+      <div class="box"><span class="num">${hours}</span><span class="unit">JAM</span></div>
+      <div class="box"><span class="num">${minutes}</span><span class="unit">MENIT</span></div>
+      <div class="box"><span class="num">${seconds}</span><span class="unit">DETIK</span></div>
+    `;
+
+    if (diff <= 0){
+      renderUnlocked();
+    }
+  }
+
+  function renderUnlocked(){
+    const previewBadge = isPreviewMode
+      ? `<p style="text-align:center;font-size:0.75rem;color:#cba135;font-weight:700;margin-bottom:10px;">⚠️ MODE PREVIEW — surat asli baru kebuka beneran 21 Sept 2026</p>`
+      : "";
+
+    document.getElementById("content").innerHTML = `
+      ${previewBadge}
+
+      <p class="ultah-eyebrow">Lusia Andita Tristama</p>
+
+      <div class="ultah-video-wrap" id="ultahVideoWrap"></div>
+      <p class="ultah-video-caption">tonton videonya ampe selesai yaa~</p>
+
+      <div class="ultah-cake-wrap hidden" id="ultahCakeWrap">
+        <p class="ultah-cake-hint">bikin wish dulu, terus tiup lilinnya~</p>
+        <div class="cake" id="ultahCake" role="button" aria-label="tiup lilin">
+          <div class="cake-flame" id="cakeFlame"></div>
+          <div class="cake-candle"></div>
+          <div class="cake-top"></div>
+          <div class="cake-body">
+            <span class="cake-dot" style="left:18%"></span>
+            <span class="cake-dot" style="left:38%"></span>
+            <span class="cake-dot" style="left:58%"></span>
+            <span class="cake-dot" style="left:78%"></span>
+          </div>
+          <div class="cake-base"></div>
+        </div>
+        <p class="cake-tap-hint" id="cakeTapHint">ketuk lilinnya buat niup</p>
+      </div>
+
+      <div class="ultah-letter-content hidden" id="ultahLetterContent">
+        <h2 class="letter-title">Selamat ulang tahun Ke 18, Lusia Andita Tristama 💚</h2>
+
+        <div class="letter-body">
+          <p>Hari ini spesial banget, bukan cuma karena ini hari lahir kamu, tapi karena ini juga jadi pengingat buat aku betapa bersyukurnya aku punya kamu di hidup aku, 6 bulan terakhir ini.</p>
+          <p>Kita LDR, jarak kadang berasa jauh banget. Tapi aku mau kamu tau satu hal: sejauh apapun jaraknya, aku tetep milih ada di sisi kamu. Nggak peduli seberapa jauh, perasaan aku ke kamu nggak akan goyah.</p>
+          <p>Aku pengen banget liat kamu bahagia terus, walau dunia ini kadang emang nyebelin dan capek buat dijalanin. Aku mau jadi salah satu alasan kamu tetep bisa senyum, dan aku juga mau kita berkembang bareng-bareng.</p>
+          <p>Karena buat aku, mencintai seseorang dengan seutuhnya itu dimulai dari mencintai diri sendiri dulu. Itu berlaku buat aku, dan aku pengen itu juga berlaku buat kamu.</p>
+          <p>Jadi di hari spesial ini, aku cuma pengen doain yang terbaik buat kamu: semoga kamu terus berkembang, terus 'mekar', jadi versi diri kamu yang lebih baik dari hari kemarin. Kuliah lancar, tugas-tugas selesai tepat waktu, manajemen waktunya makin oke, dikelilingi temen-temen baik, istirahat cukup, bisa makan makanan enak, dan tetep jadi perempuan yang mandiri dan kuat kayak biasanya.</p>
+          <p>Makasih udah jadi kamu yang sekarang. Makasih udah bertahan sejauh ini bareng aku yang banyak kurangnya ini. Aku bangga banget sama kamu.</p>
+          <p>Selamat ulang tahun, Lusia Andita Tristama. I love youuu</p>
+        </div>
+
+        <div class="letter-signoff">— RUTH 1:16 💚</div>
+      </div>
+    `;
+
+    renderUltahVideo();
+    setupCakeInteraction();
+  }
+
+  // --- Kue ulang tahun: muncul pas video kelar, harus ditiup dulu baru surat kebuka ---
+  function setupCakeInteraction(){
+    const cakeWrap = document.getElementById("ultahCakeWrap");
+    const cake = document.getElementById("ultahCake");
+    const flame = document.getElementById("cakeFlame");
+    const tapHint = document.getElementById("cakeTapHint");
+    const letterContent = document.getElementById("ultahLetterContent");
+    if (!cakeWrap || !cake) return;
+
+    let blown = false;
+
+    cake.addEventListener("click", () => {
+      if (blown) return;
+      blown = true;
+
+      flame.classList.add("blown-out");
+      cake.classList.add("no-interaction");
+      if (tapHint) tapHint.textContent = "yeay, wish-nya udah terkirim 🤍";
+
+      spawnCakeConfetti(cakeWrap);
+      playBirthdaySound();
+
+      setTimeout(() => {
+        letterContent.classList.remove("hidden");
+        letterContent.classList.add("fade-in-up");
+        letterContent.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }, 700);
+    });
+  }
+
+  function spawnCakeConfetti(container){
+    const colors = ["#cba135", "#7fa383", "#faf6ec", "#4a6b52", "#e07a5f"];
+    for (let i = 0; i < 32; i++){
+      const dot = document.createElement("span");
+      dot.className = "cake-confetti";
+      dot.style.left = (35 + Math.random() * 30) + "%";
+      dot.style.top = "6px";
+      dot.style.background = colors[Math.floor(Math.random() * colors.length)];
+      dot.style.setProperty("--dx", (Math.random() * 240 - 120) + "px");
+      dot.style.setProperty("--dy", (70 + Math.random() * 110) + "px");
+      dot.style.setProperty("--rot", (Math.random() * 480) + "deg");
+      dot.style.animationDelay = (Math.random() * 0.2) + "s";
+      dot.style.animationDuration = (0.9 + Math.random() * 0.5) + "s";
+      container.appendChild(dot);
+      setTimeout(() => dot.remove(), 1600);
+    }
+  }
+
+  // --- Suara meriah pas lilin ditiup ---
+  // Coba muter file suara dulu (taruh di ../sounds/tiup-lilin.mp3),
+  // kalau belum ada / gagal load, otomatis fallback ke jingle synth kecil
+  // biar tetep rame, nggak sepi.
+  function playBirthdaySound(){
+    const audio = new Audio("../sounds/tiup-lilin.mp3");
+    audio.volume = 0.8;
+    audio.play().catch(() => playFallbackJingle());
+    audio.addEventListener("error", playFallbackJingle);
+  }
+
+  function playFallbackJingle(){
+    try{
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+      // Kecil arpeggio naik, kesan "tararengteng~" perayaan
+      const notes = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+      notes.forEach((freq, i) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.09);
+        gain.gain.setValueAtTime(0.0001, ctx.currentTime + i * 0.09);
+        gain.gain.exponentialRampToValueAtTime(0.18, ctx.currentTime + i * 0.09 + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + i * 0.09 + 0.35);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(ctx.currentTime + i * 0.09);
+        osc.stop(ctx.currentTime + i * 0.09 + 0.35);
+      });
+    } catch(e){ /* audio nggak didukung, skip aja */ }
+  }
+
+  // --- Video hero: video kamu main gitar + ucapan, dengan poster & tombol play ---
+  function renderUltahVideo(){
+    const wrap = document.getElementById("ultahVideoWrap");
+    if (!wrap) return;
+
+    const video = document.createElement("video");
+    video.className = "ultah-video";
+    video.src = "../videos/ultah.mp4";
+    video.poster = "../images/sticker-ultah.png";
+    video.controls = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    // Sengaja TIDAK autoplay & TIDAK muted -- ini video penting dengan suara gitar,
+    // biar dia yang mutusin kapan mau mulai nonton, dan suaranya langsung nyala pas diputar.
+
+    video.onerror = () => {
+      wrap.innerHTML = "";
+      const fallback = document.createElement("div");
+      fallback.className = "ultah-video-fallback";
+      fallback.textContent = "video belum ditaruh di sini~";
+      wrap.appendChild(fallback);
+
+      const cakeWrap = document.getElementById("ultahCakeWrap");
+      if (cakeWrap && cakeWrap.classList.contains("hidden")){
+        cakeWrap.classList.remove("hidden");
+        cakeWrap.classList.add("fade-in-up");
+      }
+    };
+
+    video.addEventListener("ended", () => {
+      const cakeWrap = document.getElementById("ultahCakeWrap");
+      if (cakeWrap && cakeWrap.classList.contains("hidden")){
+        cakeWrap.classList.remove("hidden");
+        cakeWrap.classList.add("fade-in-up");
+        cakeWrap.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+
+    wrap.appendChild(video);
+  }
+
+  if (isUnlocked()){
+    renderUnlocked();
+  } else {
+    renderLocked();
+  }
+</script>
+</body>
+</html>
